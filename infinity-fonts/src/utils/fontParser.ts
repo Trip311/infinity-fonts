@@ -3,12 +3,11 @@
 
 
 import s3 from '../lib/s3';
-import protobuf from 'protobufjs';
 import * as cheerio from 'cheerio';
-import path from 'path';
+
 
 const BUCKET = process.env.AWS_S3_BUCKET!;
-const PROTO_PATH = path.join(__dirname, '..', 'protos', 'font.proto') // Adjust as needed
+
 
 export async function getFontMetadata(fontName: string) {
   const pbObj = await s3.getObject({
@@ -16,13 +15,18 @@ export async function getFontMetadata(fontName: string) {
     Key: `font-metadatas/${fontName}.pb`,
   }).promise();
 
-  const root = await protobuf.load(PROTO_PATH);
-  const FontMeta = root.lookupType('FontMeta');
-  const message = FontMeta.decode(pbObj.Body as Buffer);
-  const meta = FontMeta.toObject(message);
-
-  return meta as { name: string; style: string; catagory: string };
+  const text = pbObj.Body!.toString('utf-8');
+  // Simple regex-based parser for flat key-value pairs
+  const meta: Record<string, string> = {};
+  for (const line of text.split('\n')) {
+    const match = line.match(/^\s*([a-zA-Z0-9_]+)\s*:\s*"(.*)"\s*$/);
+    if (match) {
+      meta[match[1]] = match[2];
+    }
+  }
+  return meta;
 }
+
 
 export async function getFontDescription(fontName: string) {
   const descObj = await s3.getObject({
