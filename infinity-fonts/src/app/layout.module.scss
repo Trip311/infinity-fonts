@@ -1,0 +1,54 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: black;
+  
+    nav {
+    display: flex;
+    gap: 1rem;
+    }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: black;
+
+  &.dark {
+    color: white;
+  }
+}
+
+.link {
+  color: #4b5563;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &.dark {
+    color: #d1d5db;
+  }
+}
+
+.search {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  border: 1px solid #d1d5db;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #3b82f6;
+  }
+
+  &.dark {
+    background-color: #27272a;
+    color: white;
+  }
+}
