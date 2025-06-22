@@ -1,4 +1,3 @@
-// src/app/fonts/page.tsx
 import styles from './fonts.module.scss';
 import Image from 'next/image';
 import filterImage from "@/app/assets/tune.png"
@@ -9,12 +8,11 @@ const fonts = [
   { name: 'Oswald', preview: 'Dd' },
   { name: 'Poppins', preview: 'Ee' },
   { name: 'Raleway', preview: 'Ff' },
-  // Add more font samples here
 ];
 
 export default function FontsPage() {
   return (
-    <main className={styles.container}>
+    <div className={styles.container}>
         <button className={styles.filterbtn}>
             <Image src={filterImage} alt=''>
                 
@@ -30,6 +28,6 @@ export default function FontsPage() {
           </button>
         ))}
       </div>
-    </main>
+    </div>
   );
 }

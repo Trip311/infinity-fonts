@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import infinityImg from "@/app/assets/infinity.png";
 import "@/app/globals.scss";
-
+import { NavRootLayout } from './navbar';
 export const metadata: Metadata = {
   title: 'Infinity Fonts',
   description: 'A collection of fonts and icons for developers',
@@ -25,12 +25,7 @@ export default function RootLayout({
             <span>Infinity Fonts</span>
           </Link>
           </div>
-
-          <nav>
-            <Link href="/fonts" className={styles.link}>Fonts</Link>
-            <Link href="/icons" className={styles.link}>Icons</Link>
-          </nav>
-
+          <NavRootLayout></NavRootLayout>
           <input
             type="text"
             placeholder="Search fonts or icons..."
