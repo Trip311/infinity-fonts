@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+message FontMeta {
+  string name = 1;
+  string style = 2;
+  string stroke = 3;
+}

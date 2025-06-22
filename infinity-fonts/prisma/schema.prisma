@@ -5,20 +5,21 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model Font {
-  id             Int      @id @default(autoincrement())
-  s3Url          String
-  description    String
-  name           String
-  style          String
-  stroke         String    
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  style       String
+  stroke      String
+  description String
+  s3Url       String
+  createdAt   DateTime @default(now())
 }
