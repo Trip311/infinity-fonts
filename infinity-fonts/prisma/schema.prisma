@@ -18,7 +18,7 @@ model Font {
   id          Int      @id @default(autoincrement())
   name        String   @unique
   style       String
-  stroke      String
+  catagory    String
   description String
   s3Url       String
   createdAt   DateTime @default(now())

@@ -7,14 +7,14 @@ export const fontsRouter = router({
     .input(z.object({
       q: z.string().optional(),
       style: z.string().optional(),
-      stroke: z.string().optional(),
+      catagory: z.string().optional(),
     }))
     .query(async ({ input }) => {
       return prisma.font.findMany({
         where: {
           name: input.q ? { contains: input.q, mode: 'insensitive' } : undefined,
           style: input.style ? { equals: input.style } : undefined,
-          stroke: input.stroke ? { equals: input.stroke } : undefined,
+          catagory: input.catagory ? { equals: input.catagory } : undefined,
         },
       });
     }),
