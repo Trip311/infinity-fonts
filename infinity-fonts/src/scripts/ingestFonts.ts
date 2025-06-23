@@ -3,7 +3,9 @@ import { getFontMetadata, getFontDescription } from '../utils/fontParser';
 import s3 from '../lib/s3';
 
 
-// need to be runned every time there's a change in s3 data
+// need to be runned every time there's a change in s3 data, 
+// if going from a diffrent computer run this before running npm run dev because the db is local
+// run with npx tsx ./scripts/ingestFonts.ts
 
 async function listFontNamesFromS3(): Promise<string[]> {
   const BUCKET = process.env.AWS_S3_BUCKET!;

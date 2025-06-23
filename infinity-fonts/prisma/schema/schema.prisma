@@ -7,6 +7,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"]
 }
 
 datasource db {
@@ -14,12 +15,3 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Font {
-  id          Int      @id @default(autoincrement())
-  name        String   @unique
-  style       String
-  catagory    String
-  description String
-  s3Url       String
-  createdAt   DateTime @default(now())
-}
