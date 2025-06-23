@@ -14,7 +14,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "saas": "^1.0.0",
-    "sass": "^1.89.2"
+    "sass": "^1.89.2",
+    "sass-embedded": "^1.89.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
