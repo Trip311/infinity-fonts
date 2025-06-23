@@ -1,9 +1,5 @@
-import "@/app/globals.scss"
-export default function home({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import "@/styles/globals.scss"
+export default function Home() {
   return (
     <>
     </>
