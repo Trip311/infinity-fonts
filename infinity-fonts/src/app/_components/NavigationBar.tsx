@@ -1,3 +1,4 @@
+'use client'
 import Link from "next/link";
 import Image from "next/image";
 import styles from "@/styles/NavigationBar.module.scss";
@@ -17,7 +18,6 @@ function NavigationBar() {
           <h1>Infinity Fonts</h1>
       <div className={styles.logo}>
         <Link href="/fonts">
-          Home
           <Image src={infinityImg} alt="Logo" width={40} height={40} />
         </Link>
       </div>

@@ -1,8 +1,6 @@
-'use client'
 import styles from "./icons.module.scss";
 import Image, { StaticImageData } from "next/image";
-import filterImage from "@/app/assets/tune.png";
-import { useState } from "react";
+import FilterButton from "../_components/FilterButton";
 
 import actionImg from "@/app/assets/iconPage/action.png";
 import alertImg from "@/app/assets/iconPage/alert.png";
@@ -45,22 +43,18 @@ const iconCategories: Record<string, StaticImageData> = {
 };
 
 export default function FontsPage() {
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(true);
   return (
     <div className={styles.container}>
-      <button className={styles.filterbtn} onClick={()=>setIsMenuOpen(!isMenuOpen)}>
-        <Image src={filterImage} alt="filter menu" />
-      </button>
-      {isMenuOpen && (
-        <div className={styles.grid}>
-          {Object.entries(iconCategories).map(([name, image], key) => (
-            <button key={key} className={styles.iconCube}>
-              <Image src={image} alt={name} width={48} height={48} />
-              <span className={styles.label}>{name}</span>
-            </button>
-          ))}
-        </div>
-      )}
+      <FilterButton>
+          <div className={styles.grid}>
+            {Object.entries(iconCategories).map(([name, image], key) => (
+              <button key={key} className={styles.iconCube}>
+                <Image src={image} alt={name} width={48} height={48} />
+                <span className={styles.label}>{name}</span>
+              </button>
+            ))}
+          </div>
+      </FilterButton>
     </div>
   );
 }

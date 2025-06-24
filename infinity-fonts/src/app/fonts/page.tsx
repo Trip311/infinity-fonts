@@ -1,6 +1,7 @@
 import styles from './fonts.module.scss';
-import Image from 'next/image';
-import filterImage from "@/app/assets/tune.png"
+// import Image from 'next/image';
+// import filterImage from "@/app/assets/tune.png"
+import FilterButton from '@/app/_components/FilterButton';
 const fonts = [
   { name: 'Roboto', preview: 'Aa' },
   { name: 'Montserrat', preview: 'Bb' },
@@ -9,15 +10,19 @@ const fonts = [
   { name: 'Poppins', preview: 'Ee' },
   { name: 'Raleway', preview: 'Ff' },
 ];
-
+const mockFonts = [
+  {
+    "name": "Roboto",
+    "style": "Sans-serif",
+    "catagory": "Modern",
+    "description": "A clean, geometric font by Google.",
+    "createdAt": "2025-06-24T12:00:00.000Z"
+  },
+]
 export default function FontsPage() {
   return (
     <div className={styles.container}>
-        <button className={styles.filterbtn}>
-            <Image src={filterImage} alt=''>
-                
-            </Image>
-        </button>
+      <FilterButton>
       <div className={styles.grid}>
         {fonts.map((font, index) => (
           <button key={index} className={styles.cube}>
@@ -28,6 +33,7 @@ export default function FontsPage() {
           </button>
         ))}
       </div>
+      </FilterButton>
     </div>
   );
 }
