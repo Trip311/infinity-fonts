@@ -24,7 +24,7 @@
   width: 3rem;
   height: 3rem;
   margin-bottom: 1vh;
-  background:#aaa;
+  background: #1f1f1f;
   color: white;
   border: none;
   font-size: 1.25rem;
@@ -33,9 +33,10 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-
-  &:hover {
-    background:#aaa;
+  transition: transform 0.2s;
+    &:hover {
+    transform: translateY(-5px);
+    opacity: 0.6;
   }
 }
 
