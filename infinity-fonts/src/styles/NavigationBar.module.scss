@@ -18,6 +18,7 @@
   font-size: 1.25rem;
   font-weight: bold;
   color: black;
+  // align-self: flex-end;
 
   &.dark {
     color: white;
@@ -27,6 +28,7 @@
 .link {
   color: white;
   text-decoration: none;
+  // align-self: flex-start;
 
   &:hover {
     text-decoration: underline;
