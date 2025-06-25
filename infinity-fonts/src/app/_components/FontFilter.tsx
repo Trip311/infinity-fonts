@@ -1,4 +1,4 @@
-import styles from '@/styles/components/filterButton.module.scss';
+import styles from '@/styles/components/FontFilter.module.scss'
 
 interface FontFilterProps {
   styles: string[];
