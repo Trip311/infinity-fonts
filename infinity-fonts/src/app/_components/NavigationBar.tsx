@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import styles from "@/styles/NavigationBar.module.scss";
+import styles from "@/styles/components/NavigationBar.module.scss";
 import infinityImg from "@/app/assets/infinity.png";
 
 import SearchBar from "../_components/SearchBar";
