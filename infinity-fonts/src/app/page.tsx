@@ -4,4 +4,3 @@ export default function Home() {
   redirect("/fonts");
   return null;
 }
-

@@ -1,65 +1,16 @@
-import prisma from '../server/lib/prisma';
-import { getFontMetadata, getFontDescription } from '../server/utils/fontParser';
-import s3 from '../server/lib/s3';
-
-
-// need to be runned every time there's a change in s3 data, 
-// if going from a diffrent computer run this before running npm run dev because the db is local
-// run with npx tsx ./scripts/ingestFonts.ts
-
-async function listFontNamesFromS3(): Promise<string[]> {
-  const BUCKET = process.env.AWS_S3_BUCKET!;
-  const PREFIX = 'fonts/';
-  const result = await s3
-    .listObjectsV2({
-      Bucket: BUCKET,
-      Prefix: PREFIX,
-    })
-    .promise();
-
-  return (result.Contents || [])
-    .map(obj => obj.Key!)
-    .filter(key => key.endsWith('.zip'))
-    .map(key => key.replace(PREFIX, '').replace('.zip', ''))
-    .filter(Boolean);
-}
+import {buildFontJson} from "@/server/utils/buildFontJson"
+import { writeFileSync } from "fs";
+import {join} from 'path';
 
 async function main() {
-  const fontNames = await listFontNamesFromS3();
+    const fonts = await buildFontJson();
 
-  for (const name of fontNames) {
-    // Check if the zip file exists for this font
-    const zipKey = `fonts/${name}.zip`;
-    try {
-      await s3.headObject({
-        Bucket: process.env.AWS_S3_BUCKET!,
-        Key: zipKey,
-      }).promise();
-    } catch (err: any) {
-      if (err.code === 'NotFound' || err.statusCode === 404) {
-        console.warn(`Zip file not found for font: ${name}, skipping...`);
-        continue;
-      }
-      throw err;
-    }
+    const outputPath = join(__dirname, 'font-metadata.json');
 
-    const meta = await getFontMetadata(name);
-    const description = await getFontDescription(name);
-    const s3Url = `https://${process.env.AWS_S3_BUCKET}.s3.amazonaws.com/${zipKey}`;
+    writeFileSync(outputPath, JSON.stringify(fonts, null, 2), 'utf-8');
 
-    await prisma.font.upsert({
-        where: { name: meta.name },
-        update: {},
-        create: {
-            name: meta.name,
-            style: meta.style,
-            catagory: meta.catagory ?? '',
-            description,
-            s3Url,
-        },
-    });
-  }
-  process.exit(0);
+    console.log(`✅ Saved ${fonts.length} fonts to ${outputPath}`);
+    process.exit(0);
 }
 
 main().catch((e) => {
