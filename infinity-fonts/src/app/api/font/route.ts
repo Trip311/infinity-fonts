@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import { getAllFontsName } from '@/server/services/font.service';
+import { getAllFonts } from '@/server/services/font.service';
 export async function GET(req: Request) {
   try {
-    const fontNames = await getAllFontsName();
+    const fontNames = await getAllFonts();
     return NextResponse.json({ success: true, data: fontNames });
   } catch (error: any) {
     return NextResponse.json(
