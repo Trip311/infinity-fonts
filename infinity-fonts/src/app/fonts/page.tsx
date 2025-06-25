@@ -1,49 +1,12 @@
-<!-- import styles from './fonts.module.scss';
-import Image from 'next/image';
-import filterImage from "@/app/assets/tune.png";
-import { IFont } from '../interfaces/font.interface';
-
-
-
-async function fetchFonts(): Promise<IFont[]> {
-  try {
-    const res = await fetch('http://localhost:3000/api/font', { cache: 'no-store' });
-    const data = await res.json();
-    return data.data.map((name: string) => ({
-      name,
-      preview: name.slice(0, 2), 
-    }));
-  } catch (error) {
-    console.error('Failed to fetch fonts:', error);
-    return [];
-  }
-}
-
-
-export default async function FontsPage() {
-  const fonts = await fetchFonts();
-  console.log(fonts.length)
-  // const fonts:Font[] = [
-  //   {name:"wefwef", preview:"fdbr"},
-  // ]
-
-  return (
-    <div className={styles.container}>
-      <button className={styles.filterbtn}>
-        <Image src={filterImage} alt='' />
-      </button>
-      <div className={styles.grid}>
-<!--         {fonts.map((font, index) => (
-          <button key={index} className={styles.cube}>
-            <div className={styles.preview} style={{ fontFamily: font.name }}>
-<!--               {font.preview} -->
 "use client";
+// import Image from 'next/image';
+import styles from './fonts.module.scss';
 
-import styles from "./fonts.module.scss";
-import { useSelector } from "react-redux";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import FontFilter from "@/app/_components/FontFilter";
 import FilterButton from "@/app/_components/FilterButton";
+import { fetchFonts } from "@/app/redux/fontsSlice"; // <-- import the thunk
+import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 
 interface Font {
   name: string;
@@ -52,25 +15,30 @@ interface Font {
   category: string;
 }
 
-interface RootState {
-  fonts: {
-    items: Font[];
-    searchQuery: string;
-  };
-}
-
+// interface RootState {
+//   fonts: {
+//     items: Font[];
+//     searchQuery: string;
+//   };
+// }
 export default function FontsPage() {
-  const fonts = useSelector((state: RootState) => state.fonts.items);
-  const search = useSelector((state: RootState) => state.fonts.searchQuery);
+  const dispatch = useAppDispatch();
+  const fonts = useAppSelector((state) => state.fonts.items) as Font[]; 
+  const search = useAppSelector((state) => state.fonts.searchQuery);
 
-  // Get unique styles and categories from demoFonts
+  // Fetch fonts from backend on mount
+  useEffect(() => {
+    dispatch(fetchFonts());
+  }, [dispatch]);
+
+  // Get unique styles and categories from loaded fonts
   const styleOptions = useMemo(
     () => Array.from(new Set(fonts.map((f) => f.style).filter(Boolean))),
-    []
+    [fonts]
   );
   const categoryOptions = useMemo(
     () => Array.from(new Set(fonts.map((f) => f.category).filter(Boolean))),
-    []
+    [fonts]
   );
 
   const [selectedStyle, setSelectedStyle] = useState("");
