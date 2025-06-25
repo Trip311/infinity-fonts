@@ -62,6 +62,7 @@
 "use client";
 
 import styles from './fonts.module.scss';
+
 import Image from 'next/image';
 import filterImage from "@/app/assets/tune.png";
 import { useSelector } from 'react-redux';
@@ -81,6 +82,7 @@ interface RootState {
     searchQuery: string;
   };
 }
+
 
 export default function FontsPage() {
   const fonts = useSelector((state: RootState) => state.fonts.items);
@@ -108,6 +110,7 @@ export default function FontsPage() {
 
   return (
     <div className={styles.container}>
+
       <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
         <FontFilter
           styles={styleOptions}
@@ -120,6 +123,7 @@ export default function FontsPage() {
         <div style={{ flex: 1 }}>
           <button className={styles.filterbtn}>
             <Image src={filterImage} alt='' />
+
           </button>
           <div className={styles.grid}>
             {filteredFonts.map((font, index) => (
@@ -146,6 +150,7 @@ export default function FontsPage() {
           )}
         </div>
       </div>
+      </FilterButton>
     </div>
   );
 }

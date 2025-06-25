@@ -1,10 +1,10 @@
-
-"use client";
+'use client'
 
 import Link from "next/link";
 import Image from "next/image";
 import styles from "@/styles/NavigationBar.module.scss";
 import infinityImg from "@/app/assets/infinity.png";
+
 import SearchBar from "../_components/SearchBar";
 import { useSelector, useDispatch } from "react-redux";
 import { setSearchQuery } from "../redux/fontsSlice";

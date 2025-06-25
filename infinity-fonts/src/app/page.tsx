@@ -1,5 +1,7 @@
-import "@/app/globals.scss"
-import { redirect,  } from 'next/navigation';
-export default function home() {
-    redirect("/fonts")
+import { redirect } from "next/navigation";
+
+export default function Home() {
+  redirect("/fonts");
+  return null;
 }
+
