@@ -4,6 +4,7 @@
   align-items: center;
   padding: 1rem;
   background: black;
+
   
     nav {
     display: flex;
@@ -25,7 +26,7 @@
 }
 
 .link {
-  color: #4b5563;
+  color: white;
   text-decoration: none;
 
   &:hover {
@@ -51,4 +52,23 @@
     background-color: #27272a;
     color: white;
   }
+
+}
+
+.searchBarSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 0 2rem 0;
+  background: black;
+}
+
+.searchBarTitle {
+  font-size: 1.7rem;
+  color: white; 
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+
 }
