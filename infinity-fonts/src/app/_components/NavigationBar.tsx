@@ -7,7 +7,7 @@ function NavigationBar() {
   return (
     <header className={styles.navbar}>
       <div className={styles.logo}>
-        <Link href="/">
+        <Link href="/fonts">
           Home
           <Image src={infinityImg} alt="Logo" width={40} height={40} />
           <span>Infinity Fonts</span>
