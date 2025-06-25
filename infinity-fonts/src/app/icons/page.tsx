@@ -2,6 +2,7 @@ import styles from "./icons.module.scss";
 import Image, { StaticImageData } from "next/image";
 import FilterButton from "../_components/FilterButton";
 
+
 import actionImg from "@/app/assets/iconPage/action.png";
 import alertImg from "@/app/assets/iconPage/alert.png";
 import avImg from "@/app/assets/iconPage/av.png";
@@ -58,3 +59,4 @@ export default function FontsPage() {
     </div>
   );
 }
+
