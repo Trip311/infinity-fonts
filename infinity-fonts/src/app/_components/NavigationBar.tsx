@@ -13,7 +13,7 @@ function NavigationBar() {
   const dispatch = useDispatch();
   const search = useSelector((state: any) => state.fonts.searchQuery);
 
-  const handleChange = (e) => {
+  const handleChange = (e:any) => {
     dispatch(setSearchQuery(e.target.value));
   };
 
