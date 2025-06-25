@@ -1,12 +1,9 @@
 "use client";
 
 import styles from "./fonts.module.scss";
-
-import Image from "next/image";
-import filterImage from "@/app/assets/tune.png";
 import { useSelector } from "react-redux";
 import { useState, useMemo } from "react";
-import FontFilter from "./FontFilter";
+import FontFilter from "@/app/_components/FontFilter";
 import FilterButton from "@/app/_components/FilterButton";
 
 interface Font {

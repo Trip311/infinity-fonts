@@ -18,27 +18,6 @@
   gap: 1.5rem;
 }
 
-.filterbtn{
-  top: 1rem;
-  right: 1rem;
-  width: 3rem;
-  height: 3rem;
-  margin-bottom: 1vh;
-  background: #1f1f1f;
-  color: white;
-  border: none;
-  font-size: 1.25rem;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.2s;
-    &:hover {
-    transform: translateY(-5px);
-    opacity: 0.6;
-  }
-}
 
 .cube {
   background: #1f1f1f;
