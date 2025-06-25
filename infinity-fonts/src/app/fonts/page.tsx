@@ -16,12 +16,7 @@ interface Font {
   category: string;
 }
 
-// interface RootState {
-//   fonts: {
-//     items: Font[];
-//     searchQuery: string;
-//   };
-// }
+
 export default function FontsPage() {
   const dispatch = useAppDispatch();
   const fonts = useAppSelector((state) => state.fonts.items) as Font[]; 
@@ -74,7 +69,7 @@ export default function FontsPage() {
                   className={styles.preview}
                   style={{ fontFamily: font.name }}
                 >
-                  {font.preview || font.name[0]}
+                  {font.name[0]}
                 </div>
                 <div className={styles.name}>{font.name}</div>
               </button>

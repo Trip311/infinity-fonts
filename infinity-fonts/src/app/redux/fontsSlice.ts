@@ -4,9 +4,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const fetchFonts = createAsyncThunk(
   'fonts/fetchFonts',
   async () => {
-    const res = await fetch('/api/font'); // Adjust the URL if needed
+    const res = await fetch('/api/font'); 
     const data = await res.json();
-    // If your API returns { data: [...] }
+    console.log('fetchFonts response data:', data);
     return data.data;
   }
 );
