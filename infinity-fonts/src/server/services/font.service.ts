@@ -1,5 +1,5 @@
 import { getAllFontsFromS3 } from "../repositories/font.repository"
-export async function getAllFontsName() {
+export async function getAllFonts() {
   const fonts = await getAllFontsFromS3();
-  return fonts.map((font: { name: string }) => font.name);
+  return fonts;
 }

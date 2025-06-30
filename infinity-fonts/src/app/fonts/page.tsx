@@ -80,8 +80,8 @@ export default function FontsPage() {
                 <div
                   className={styles.preview}
                   style={{ fontFamily: font.name }}
-                  >
-                  {font.preview || font.name[0]}
+                >
+                  {font.name[0]}
                 </div>
                 <div className={styles.name}>{font.name}</div>
               </button>
