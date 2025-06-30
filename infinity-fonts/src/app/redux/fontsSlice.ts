@@ -6,7 +6,7 @@ export const fetchFonts = createAsyncThunk(
   async () => {
     const res = await fetch('/api/font'); 
     const data = await res.json();
-    console.log('fetchFonts response data:', data);
+    
     return data.data;
   }
 );
