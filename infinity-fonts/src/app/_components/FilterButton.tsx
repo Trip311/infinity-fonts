@@ -2,7 +2,7 @@
 import filterImage from "@/app/assets/tune.png";
 import Image from "next/image";
 import React, { PropsWithChildren, useState } from "react";
-import styles from "@/styles/components/FilterButton.module.scss"
+import styles from "@/styles/components/filterButton.module.scss"
 
 const FilterButton = ({children}: PropsWithChildren) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(true);

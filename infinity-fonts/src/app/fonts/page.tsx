@@ -1,4 +1,3 @@
-
 "use client";
 // import Image from 'next/image';
 import styles from './fonts.module.scss';
@@ -16,23 +15,16 @@ interface Font {
   category: string;
 }
 
-// interface RootState {
-//   fonts: {
-//     items: Font[];
-//     searchQuery: string;
-//   };
-// }
 export default function FontsPage() {
   const dispatch = useAppDispatch();
   const fonts = useAppSelector((state) => state.fonts.items) as Font[]; 
+  const status = useAppSelector((state) => state.fonts.status);
   const search = useAppSelector((state) => state.fonts.searchQuery);
 
-  // Fetch fonts from backend on mount
   useEffect(() => {
     dispatch(fetchFonts());
   }, [dispatch]);
 
-  // Get unique styles and categories from loaded fonts
   const styleOptions = useMemo(
     () => Array.from(new Set(fonts.map((f) => f.style).filter(Boolean))),
     [fonts]
@@ -45,13 +37,28 @@ export default function FontsPage() {
   const [selectedStyle, setSelectedStyle] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  // Combine search and filter logic
-  const filteredFonts = fonts.filter(
-    (font) =>
-      font.name.toLowerCase().includes(search.toLowerCase()) &&
-      (selectedStyle ? font.style === selectedStyle : true) &&
-      (selectedCategory ? font.category === selectedCategory : true)
-  );
+  const filteredFonts = useMemo(() => {
+    if (status === "succeeded") {
+      return fonts.filter(
+        (font) =>
+          font.name?.toLowerCase().includes(search.toLowerCase()) &&
+          (selectedStyle ? font.style === selectedStyle : true) &&
+          (selectedCategory ? font.category === selectedCategory : true)
+      );
+    }
+    return [];
+  }, [status, fonts, search, selectedStyle, selectedCategory]);
+
+  if (status === 'loading') {
+    return <div className={styles.loading}>Loading fonts...</div>;
+  }
+
+  if (status === 'failed') {
+    return <div className={styles.error}>Failed to load fonts.</div>;
+  }
+
+  console.log(status)
+  console.log(filteredFonts)
 
   return (
     <div className={styles.container}>
@@ -73,7 +80,7 @@ export default function FontsPage() {
                 <div
                   className={styles.preview}
                   style={{ fontFamily: font.name }}
-                >
+                  >
                   {font.preview || font.name[0]}
                 </div>
                 <div className={styles.name}>{font.name}</div>
