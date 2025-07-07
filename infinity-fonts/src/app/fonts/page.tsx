@@ -4,23 +4,19 @@ import styles from './fonts.module.scss';
 
 import { useState, useMemo, useEffect } from "react";
 import FontFilter from "@/app/_components/FontFilter";
-import FilterButton from "@/app/_components/FilterButton";
 import { fetchFonts } from "@/app/redux/fontsSlice"; // <-- import the thunk
 import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
+import fontPopUp from '../_components/fontPopUp';
+import FontPopUp from '../_components/fontPopUp';
+import {IFont} from"@/app/interfaces/font.interface"
 
-interface Font {
-  name: string;
-  preview: string;
-  style: string;
-  category: string;
-}
 
 export default function FontsPage() {
   const dispatch = useAppDispatch();
-  const fonts = useAppSelector((state) => state.fonts.items) as Font[]; 
+  const fonts = useAppSelector((state) => state.fonts.items) as IFont[]; 
   const status = useAppSelector((state) => state.fonts.status);
   const search = useAppSelector((state) => state.fonts.searchQuery);
-
+  const [selectedFont, setSelectedFont] = useState<IFont | null>(null);
   useEffect(() => {
     dispatch(fetchFonts());
   }, [dispatch]);
@@ -30,7 +26,7 @@ export default function FontsPage() {
     [fonts]
   );
   const categoryOptions = useMemo(
-    () => Array.from(new Set(fonts.map((f) => f.category).filter(Boolean))),
+    () => Array.from(new Set(fonts.map((f) => f.catagory).filter(Boolean))),
     [fonts]
   );
 
@@ -43,7 +39,7 @@ export default function FontsPage() {
         (font) =>
           font.name?.toLowerCase().includes(search.toLowerCase()) &&
           (selectedStyle ? font.style === selectedStyle : true) &&
-          (selectedCategory ? font.category === selectedCategory : true)
+          (selectedCategory ? font.catagory === selectedCategory : true)
       );
     }
     return [];
@@ -57,13 +53,11 @@ export default function FontsPage() {
     return <div className={styles.error}>Failed to load fonts.</div>;
   }
 
-  console.log(status)
-  console.log(filteredFonts)
 
   return (
     <div className={styles.container}>
       <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
-        <FilterButton>
+        {/* <FilterButton> */}
           <FontFilter
             styles={styleOptions}
             categories={categoryOptions}
@@ -72,21 +66,24 @@ export default function FontsPage() {
             onStyleChange={setSelectedStyle}
             onCategoryChange={setSelectedCategory}
           />
-        </FilterButton>
+        {/* </FilterButton> */}
         <div style={{ flex: 1 }}>
           <div className={styles.grid}>
             {filteredFonts.map((font, index) => (
-              <button key={index} className={styles.cube}>
+              <button onClick={()=>setSelectedFont(font)} key={index} className={styles.cube}>
                 <div
                   className={styles.preview}
                   style={{ fontFamily: font.name }}
                 >
                   {font.name[0]}
                 </div>
-                <div className={styles.name}>{font.name}</div>
+                <div className={styles.name}>{font.name.substring(0,5)}</div>
               </button>
             ))}
-          </div>
+          {selectedFont && (
+            <FontPopUp font={selectedFont} onClose={() => setSelectedFont(null)} />
+            )}          
+            </div>
           {filteredFonts.length === 0 && (
             <div className={styles.noResults}>
               <span>Sorry, no fonts matched your search.</span>
